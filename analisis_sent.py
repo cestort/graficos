@@ -2,10 +2,10 @@ import plotly.graph_objects as go
 from typing import Optional, List
 
 
-def grafico_kpi_sentimiento(
-    positivos: int,
-    negativos: int,
-    neutros: int,
+def grafico_kpi_acelerador(
+    positivos: float,
+    negativos: float,
+    neutros: float,
     objetivo_positivo: float = 70.0,
     titulo: str = 'KPI: Sentimiento Positivo',
     mostrar_desglose: bool = True,
@@ -30,9 +30,9 @@ def grafico_kpi_sentimiento(
     # ===== CONFIGURACIÓN DE COLORES =====
     if colores_gauge is None:
         colores_gauge = [
-            '#e74c3c',  # Rojo para zona baja (0-40%)
+            "#e31700",  # Rojo para zona baja (0-40%)
             '#f39c12',  # Amarillo para zona media (40-70%)
-            '#2ecc71'   # Verde para zona alta (70-100%)
+            "#0dc95c"   # Verde para zona alta (70-100%)
         ]
     
     # ===== CÁLCULO DE MÉTRICAS =====
@@ -109,7 +109,7 @@ def grafico_kpi_sentimiento(
             
             # Línea roja que marca el objetivo
             'threshold': {
-                'line': {'color': "#e74c3c", 'width': 4},
+                'line': {'color': "#4d0800", 'width': 4},
                 'thickness': 0.75,
                 'value': objetivo_positivo
             }
@@ -150,6 +150,8 @@ def grafico_kpi_sentimiento(
     return fig
 
 
+
+
 # ============================================================================
 # 🎨 VARIABLES PARA PERSONALIZAR - MODIFICA ESTOS VALORES
 # ============================================================================
@@ -160,13 +162,13 @@ NEGATIVOS = 30           # Número de comentarios negativos
 NEUTROS = 50             # Número de comentarios neutros
 
 # Objetivo del KPI (en porcentaje)
-OBJETIVO = 70.0          # Meta: queremos alcanzar 70% de positividad
+OBJETIVO = 40.0          # Meta: queremos alcanzar 70% de positividad
 
 # Personalización visual
 TITULO_GRAFICO = 'Análisis de Sentimiento - Redes Sociales'
 
 # Colores personalizados (opcional - descomenta para usar)
-# MIS_COLORES = ['#ff6b6b', '#ffd93d', '#6bcf7f']  # Rojo, Amarillo, Verde
+MIS_COLORES = ['#ff6b6b', '#ffd93d', '#6bcf7f']  # Rojo, Amarillo, Verde
 
 
 # ============================================================================
@@ -174,53 +176,84 @@ TITULO_GRAFICO = 'Análisis de Sentimiento - Redes Sociales'
 # ============================================================================
 
 if __name__ == "__main__":
-    
-    # Calcular el resultado esperado
-    total = POSITIVOS + NEGATIVOS + NEUTROS
-    porcentaje_actual = (POSITIVOS / total) * 100
-    
-    # Mostrar información en consola
-    print("=" * 60)
-    print("📊 GENERANDO GRÁFICO DE KPI DE SENTIMIENTO")
-    print("=" * 60)
-    print(f"\n📝 Datos configurados:")
-    print(f"   Positivos: {POSITIVOS}")
-    print(f"   Negativos: {NEGATIVOS}")
-    print(f"   Neutros: {NEUTROS}")
-    print(f"   Total: {total}")
-    print(f"\n🎯 Objetivo: {OBJETIVO}%")
-    print(f"📈 Resultado actual: {porcentaje_actual:.1f}%")
-    
-    # Determinar estado
-    if porcentaje_actual >= OBJETIVO:
-        estado = "✅ ¡OBJETIVO ALCANZADO!"
-        color_estado = "verde"
-    elif porcentaje_actual >= OBJETIVO * 0.7:
-        estado = "⚠️  Cerca del objetivo"
-        color_estado = "amarillo"
-    else:
-        estado = "❌ Por debajo del objetivo"
-        color_estado = "rojo"
-    
-    print(f"\n{estado}")
-    print(f"Diferencia: {porcentaje_actual - OBJETIVO:+.1f} puntos porcentuales")
-    print("\n" + "=" * 60)
-    print("🚀 Abriendo gráfico en el navegador...")
-    print("=" * 60 + "\n")
-    
-    # Crear el gráfico con las variables definidas arriba
-    fig = grafico_kpi_sentimiento(
-        positivos=POSITIVOS,
-        negativos=NEGATIVOS,
-        neutros=NEUTROS,
-        objetivo_positivo=OBJETIVO,
-        titulo=TITULO_GRAFICO,
-        mostrar_desglose=True
-        # colores_gauge=MIS_COLORES  # Descomenta para usar colores personalizados
+
+    fig1=grafico_kpi_acelerador(
+        positivos=50,
+        negativos=30,
+        neutros=20,
+        objetivo_positivo=70.0,
+        titulo="KPI de Sentimiento Personalizado1",
+        mostrar_desglose=True,
+        colores_gauge=["#00ff33", "#ffcc00","#ff0000",] 
     )
+
+    fig2=grafico_kpi_acelerador(
+        positivos=70,
+        negativos=20,
+        neutros=10,
+        objetivo_positivo=70.0,
+        titulo="KPI de Sentimiento Personalizado2",
+        mostrar_desglose=True,
+        colores_gauge=["#00ff33", "#ffcc00","#ff0000",] 
+    )
+
+    fig3=grafico_kpi_acelerador(
+        positivos=80,
+        negativos=10,
+        neutros=10,
+        objetivo_positivo=50.0,
+        titulo="KPI de Sentimiento Personalizado3",
+        mostrar_desglose=True,
+        colores_gauge=["#00ff33", "#ffcc00","#ff0000",] 
+    )
+    # # Calcular el resultado esperado
+    # total = POSITIVOS + NEGATIVOS + NEUTROS
+    # porcentaje_actual = (POSITIVOS / total) * 100
+    
+    # # Mostrar información en consola
+    # print("=" * 60)
+    # print("📊 GENERANDO GRÁFICO DE KPI DE SENTIMIENTO")
+    # print("=" * 60)
+    # print(f"\n📝 Datos configurados:")
+    # print(f"   Positivos: {POSITIVOS}")
+    # print(f"   Negativos: {NEGATIVOS}")
+    # print(f"   Neutros: {NEUTROS}")
+    # print(f"   Total: {total}")
+    # print(f"\n🎯 Objetivo: {OBJETIVO}%")
+    # print(f"📈 Resultado actual: {porcentaje_actual:.1f}%")
+    
+    # # Determinar estado
+    # if porcentaje_actual >= OBJETIVO:
+    #     estado = "✅ ¡OBJETIVO ALCANZADO!"
+    #     color_estado = "verde"
+    # elif porcentaje_actual >= OBJETIVO * 0.7:
+    #     estado = "⚠️  Cerca del objetivo"
+    #     color_estado = "amarillo"
+    # else:
+    #     estado = "❌ Por debajo del objetivo"
+    #     color_estado = "rojo"
+    
+    # print(f"\n{estado}")
+    # print(f"Diferencia: {porcentaje_actual - OBJETIVO:+.1f} puntos porcentuales")
+    # print("\n" + "=" * 60)
+    # print("🚀 Abriendo gráfico en el navegador...")
+    # print("=" * 60 + "\n")
+    
+    # # Crear el gráfico con las variables definidas arriba
+    # fig = grafico_kpi_acelerador(
+    #     positivos=POSITIVOS,
+    #     negativos=NEGATIVOS,
+    #     neutros=NEUTROS,
+    #     objetivo_positivo=OBJETIVO,
+    #     titulo=TITULO_GRAFICO,
+    #     mostrar_desglose=False,
+    #     colores_gauge=MIS_COLORES
+    # )
     
     # Mostrar el gráfico
-    fig.show()
+    fig1.show()
+    fig2.show()
+    fig3.show()
     
     # Guardar el gráfico (opcional)
     # fig.write_html("mi_kpi_sentimiento.html")
